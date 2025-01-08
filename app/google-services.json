@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "344473371072",
+    "project_id": "pam-firebase-cb300",
+    "storage_bucket": "pam-firebase-cb300.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344473371072:android:e949620d60ff5e99074825",
+        "android_client_info": {
+          "package_name": "com.example.firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUoX1KqTVkajgFabs1ojRFIqo4fb8Ax8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
