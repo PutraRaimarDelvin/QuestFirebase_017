@@ -22,7 +22,7 @@ class NetworkRepositoryMhs(
     override fun getAllMhs(): Flow<List<Mahasiswa>> = callbackFlow {
         val mhsCollection = firestore.collection("Mahasiswa")
             .orderBy("nim", Query.Direction.ASCENDING)
-            .addSnapshotListener{ value, error ->
+            .addSnapshotListener { value, error ->
                 if (value != null) {
                     val mhsList = value.documents.mapNotNull {
                         it.toObject(Mahasiswa::class.java)!!
@@ -36,3 +36,29 @@ class NetworkRepositoryMhs(
         }
     }
 
+    override fun getMhs(nim: String): Flow<Mahasiswa> = callbackFlow {
+        val mhsDocument = firestore.collection("Mahasiswa")
+            .document(nim)
+            .addSnapshotListener { value, error ->
+                if (value != null) {
+                    val mhs = value.toObject(Mahasiswa::class.java)!!
+                    trySend(mhs)
+                }
+            }
+
+        awaitClose {
+            mhsDocument.remove()
+        }
+    }
+
+    override suspend fun deleteMhs(mahasiswa: Mahasiswa) {
+        try {
+            firestore.collection("Mahasiswa")
+                .document(mahasiswa.nim)
+                .delete()
+                .await()
+        } catch (e: Exception) {
+            throw Exception("Gagal menghapus data mahasiswa: ${e.message}")
+        }
+    }
+}
